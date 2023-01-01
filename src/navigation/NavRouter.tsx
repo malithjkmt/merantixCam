@@ -23,7 +23,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 const NavRouter: FC = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ animation: 'slide_from_right' }}>
+      <Stack.Navigator>
         <Stack.Screen
           name="CameraScreen"
           component={CameraScreen}
@@ -32,7 +32,7 @@ const NavRouter: FC = () => {
         <Stack.Screen
           name="ResultScreen"
           component={ResultScreen}
-          options={{ headerShown: false, animation: 'fade' }}
+          options={{ headerShown: false, animation: 'slide_from_right' }}
         />
       </Stack.Navigator>
     </NavigationContainer>

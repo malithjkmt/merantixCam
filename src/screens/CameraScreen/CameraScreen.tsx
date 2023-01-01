@@ -1,11 +1,11 @@
 import React, { useRef } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, UIManager, findNodeHandle } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, UIManager, findNodeHandle } from 'react-native';
 
 import { CameraScreenProps } from '../../navigation/NavRouter';
-import { commonStyles } from '../../styles';
+import { commonStyles, theme } from '../../styles';
 import { RNTCameraView } from '../../native/ui/RNTCameraView';
 
-const CameraScreen = ({ navigation, route }: CameraScreenProps) => {
+const CameraScreen = ({ navigation }: CameraScreenProps) => {
   const reactTag = useRef<number | null>(null);
 
   const onCapture = (e: { nativeEvent: { url: any } }) => {
@@ -23,7 +23,6 @@ const CameraScreen = ({ navigation, route }: CameraScreenProps) => {
   };
   return (
     <View style={commonStyles.darkContainer}>
-      <Text style={styles.heading}>Camera Screen</Text>
       <RNTCameraView
         ref={ref => {
           reactTag.current = findNodeHandle(ref);
@@ -31,26 +30,42 @@ const CameraScreen = ({ navigation, route }: CameraScreenProps) => {
         style={styles.cameraContainer}
         onCapture={onCapture}
       />
-      <TouchableOpacity style={styles.captureButton} onPress={takePhoto}>
-        <Text>Capture</Text>
-      </TouchableOpacity>
+      <View style={styles.captureButtonContainer}>
+        <View style={styles.captureButtonBorder}>
+          <TouchableOpacity style={styles.captureButton} onPress={takePhoto} />
+        </View>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  // temp styling
-  heading: {
-    color: 'white',
-    textAlign: 'center',
-  },
   cameraContainer: {
     flex: 1,
+    marginTop: '10%',
+    marginBottom: '5%',
+  },
+  captureButtonContainer: {
+    height: 100,
+    padding: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  captureButtonBorder: {
+    height: 76,
+    width: 76,
+    borderRadius: 76,
+    backgroundColor: theme.colors.lightButtonColor,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   captureButton: {
-    height: 100,
-    width: 100,
-    backgroundColor: 'green',
+    height: 72,
+    width: 72,
+    borderRadius: 72,
+    borderWidth: 4,
+    borderColor: theme.colors.darkBackground,
+    backgroundColor: theme.colors.lightButtonColor,
   },
 });
 

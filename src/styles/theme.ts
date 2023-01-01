@@ -4,6 +4,7 @@ export const theme = {
   colors: {
     darkBackground: palette.meranBlack,
     primaryTextColor: palette.meranWhite,
+    lightButtonColor: palette.meranWhite,
   },
   spacing: {
     s: 5,
