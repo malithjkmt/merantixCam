@@ -3,23 +3,17 @@
  */
 
 import React from 'react';
-import { SafeAreaView, StatusBar, StyleSheet } from 'react-native';
+import { SafeAreaView, StatusBar } from 'react-native';
 import { NavRouter } from './navigation/NavRouter';
+import { commonStyles } from './styles';
 
 const App = () => {
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={commonStyles.darkContainer}>
       <StatusBar barStyle="light-content" />
       <NavRouter />
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#000',
-  },
-});
 
 export default App;
