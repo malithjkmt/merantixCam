@@ -12,7 +12,7 @@ import ResultScreen from '../screens/ResultScreen';
 
 type RootStackParamList = {
   CameraScreen: undefined;
-  ResultScreen: undefined;
+  ResultScreen: { url: string };
 };
 
 export type CameraScreenProps = NativeStackScreenProps<RootStackParamList, 'CameraScreen'>;

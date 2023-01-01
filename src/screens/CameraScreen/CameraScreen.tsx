@@ -11,6 +11,7 @@ const CameraScreen = ({ navigation, route }: CameraScreenProps) => {
   const onCapture = (e: { nativeEvent: { url: any } }) => {
     console.log('onCapture');
     console.log(e.nativeEvent.url);
+    navigation.navigate('ResultScreen', { url: e.nativeEvent.url });
   };
 
   const takePhoto = () => {
