@@ -1,5 +1,7 @@
-import React, { useRef } from 'react';
-import { View, StyleSheet, TouchableOpacity, UIManager, findNodeHandle } from 'react-native';
+import React, { useRef, useEffect } from 'react';
+import { View, StyleSheet, TouchableOpacity, UIManager, findNodeHandle, Alert } from 'react-native';
+import { check, request, openSettings, PERMISSIONS, RESULTS } from 'react-native-permissions';
+import RNExitApp from 'react-native-exit-app';
 
 import { CameraScreenProps } from '../../navigation/NavRouter';
 import { commonStyles, theme } from '../../styles';
@@ -7,6 +9,11 @@ import { RNTCameraView } from '../../native/ui/RNTCameraView';
 
 const CameraScreen = ({ navigation }: CameraScreenProps) => {
   const reactTag = useRef<number | null>(null);
+
+  useEffect(() => {
+    checkPermissions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const onCapture = (e: { nativeEvent: { url: any } }) => {
     console.log('onCapture');
@@ -21,6 +28,62 @@ const CameraScreen = ({ navigation }: CameraScreenProps) => {
       [],
     );
   };
+
+  const checkPermissions = async () => {
+    const result = await check(PERMISSIONS.IOS.CAMERA);
+    console.log(result);
+
+    switch (result) {
+      case RESULTS.UNAVAILABLE:
+        console.log('This feature is not available (on this device / in this context)');
+        goToSettings();
+        break;
+      case RESULTS.DENIED:
+        console.log('The permission has not been requested / is denied but requestable');
+        requestPermissions();
+        break;
+      case RESULTS.LIMITED:
+        console.log('The permission is limited: some actions are possible');
+        break;
+      case RESULTS.GRANTED:
+        console.log('The permission is granted');
+        break;
+      case RESULTS.BLOCKED:
+        console.log('The permission is denied and not requestable anymore');
+        goToSettings();
+        break;
+    }
+  };
+
+  const requestPermissions = async () => {
+    const result = await request(PERMISSIONS.IOS.LOCATION_ALWAYS);
+
+    console.log(result);
+  };
+
+  const goToSettings = async () => {
+    try {
+      Alert.alert(
+        'MerantixCam Needs Permisions',
+        'Please allow MerantixCam to access Camera from the settings',
+        [
+          { text: 'Open Settings', onPress: openSettings },
+          { text: 'Close App', onPress: closeApp },
+        ],
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const closeApp = () => {
+    try {
+      RNExitApp.exitApp();
+    } catch (err) {
+      console.log('Error closing app', err);
+    }
+  };
+
   return (
     <View style={commonStyles.darkContainer}>
       <RNTCameraView
