@@ -31,7 +31,6 @@ const CameraScreen = ({ navigation }: CameraScreenProps) => {
 
   const checkPermissions = async () => {
     const result = await check(PERMISSIONS.IOS.CAMERA);
-    console.log(result);
 
     switch (result) {
       case RESULTS.UNAVAILABLE:

@@ -43,7 +43,7 @@ const NavRouter: FC = () => {
         <Stack.Screen
           name="NoPermissionScreen"
           component={NoPermissionScreen}
-          options={{ headerShown: false, animation: 'fade' }}
+          options={{ headerShown: false, animation: 'none' }}
         />
       </Stack.Navigator>
     </NavigationContainer>
