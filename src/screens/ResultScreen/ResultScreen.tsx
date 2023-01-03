@@ -14,7 +14,7 @@ const ResultScreen = ({ navigation, route }: ResultScreenProps) => {
       <Image source={{ uri: url }} style={styles.previewImage} />
       <View style={styles.buttonRow}>
         <IconButton label="Retake" icon={Icons.retryIcon} onPress={() => navigation.goBack()} />
-        <IconButton label="Use photo" icon={Icons.useIcon} onPress={() => { }} />
+        <IconButton label="Use photo" icon={Icons.useIcon} onPress={() => {}} />
       </View>
     </View>
   );
