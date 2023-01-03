@@ -3,8 +3,9 @@ import { palette } from './palette';
 export const theme = {
   colors: {
     darkBackground: palette.meranBlack,
-    primaryTextColor: palette.meranWhite,
     lightButtonColor: palette.meranWhite,
+    defalutTextColor: palette.meranWhite,
+    buttonActiveTextColor: palette.meranBlue,
   },
   spacing: {
     s: 5,

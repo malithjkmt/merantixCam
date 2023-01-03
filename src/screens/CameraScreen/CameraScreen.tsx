@@ -1,8 +1,8 @@
 import React, { useRef, useEffect } from 'react';
 import { View, StyleSheet, TouchableOpacity, UIManager, findNodeHandle, Alert } from 'react-native';
-import { check, request, openSettings, PERMISSIONS, RESULTS } from 'react-native-permissions';
-import RNExitApp from 'react-native-exit-app';
+import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
 
+import { openSettings } from '../../utils/common';
 import { CameraScreenProps } from '../../navigation/NavRouter';
 import { commonStyles, theme } from '../../styles';
 import { RNTCameraView } from '../../native/ui/RNTCameraView';
@@ -65,10 +65,10 @@ const CameraScreen = ({ navigation }: CameraScreenProps) => {
     try {
       Alert.alert(
         'MerantixCam Needs Permisions',
-        'Please allow MerantixCam to access Camera from the settings',
+        'Please allow MerantixCam to access camera from the settings',
         [
           { text: 'Open Settings', onPress: openSettings },
-          { text: 'Close App', onPress: closeApp },
+          { text: 'Cancel', onPress: onNoPermissionGranted },
         ],
       );
     } catch (err) {
@@ -76,12 +76,10 @@ const CameraScreen = ({ navigation }: CameraScreenProps) => {
     }
   };
 
-  const closeApp = () => {
-    try {
-      RNExitApp.exitApp();
-    } catch (err) {
-      console.log('Error closing app', err);
-    }
+  const onNoPermissionGranted = () => {
+    navigation.reset({
+      routes: [{ name: 'NoPermissionScreen' }],
+    });
   };
 
   return (
